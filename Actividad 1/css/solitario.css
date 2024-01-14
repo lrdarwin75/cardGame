@@ -3,28 +3,30 @@
 */
 /* Fondo */
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    height: 100%;
-    background: rgb(2,0,36);
-	background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(12,5,74,1) 35%, rgba(0,212,255,1) 100%);
+  height: 100%;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    0deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(12, 5, 74, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
 }
 
 /* Centrado del título y color */
 
-
 #score {
-	position: relative;
-	background: rgba(0,0,0,.15);
-	margin-top: 1.5em;
-	margin-bottom: 0.5em;
-	padding: 1em;
-	line-height: 1;
- }
-
-
+  position: relative;
+  background: rgba(0, 0, 0, 0.15);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  padding: 1em;
+  line-height: 1;
+}
 
 /* /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! 
 	Completar los estilos que faltan y modificar al gusto del alumno
@@ -34,57 +36,57 @@ body {
    derecha (position absolute) de los respectivos tapetes (position relative).
 */
 .contador {
-	position: absolute;
-	bottom: 0px;
-	right: 3px;
+  position: absolute;
+  bottom: 0px;
+  right: 3px;
 }
 
 /* Centrado del título y color */
 #titulo {
-	text-align: center;
-	color: #fff;
+  text-align: center;
+  color: #fff;
 }
 
 /* Centrado de los marcadores de tiempo y movimientos */
-h3#marcadores{ 
-	text-align: center; 
-	color: #fff;
+h3#marcadores {
+  text-align: center;
+  color: #fff;
 }
 
 /* Mesa que contiene a los tapetes centrados */
-#mesa{
-	text-align: center;
-	margin:20px;
+#mesa {
+  text-align: center;
+  margin: 20px;
 }
 
 /* Todos los tapetes con position relative para que
    los respectivos mazos (arrays de <img>) puedan
    posicionarse de manera absoluta respecto a ellos */
-.tapete{
-	display: inline-block;
-	position: relative;
-	margin: 10px;
+.tapete {
+  display: inline-block;
+  position: relative;
+  margin: 10px;
 }
 
 /* Dimensiones y color de fondo para el tapete inicial */
-.tapete#inicial{
-	width: 340px;
-	height: 340px;			
-	background-color: rgb(81, 95, 139);
+.tapete#inicial {
+  width: 340px;
+  height: 340px;
+  background-color: rgb(81, 95, 139);
 }
 
 /* Dimensiones para todos los tapetes salvo el inicial */
-.tapete:not(#inicial){				
-	height: 125px;
-	width: 100px;
+.tapete:not(#inicial) {
+  height: 125px;
+  width: 100px;
 }
 
 /* Color de fondo para el tapete de las cartas sobrantes */
-.tapete#sobrantes{
-	background-color: rgb(87, 122, 134);
+.tapete#sobrantes {
+  background-color: rgb(87, 122, 134);
 }
 
 /* Color de fondo de los tapetes receptores */
-.tapete.receptor{
-	background-color: rgba(0,212,255,1);
+.tapete.receptor {
+  background-color: rgba(0, 212, 255, 1);
 }
