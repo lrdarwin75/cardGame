@@ -70,15 +70,15 @@ h3#marcadores {
 
 /* Dimensiones y color de fondo para el tapete inicial */
 .tapete#inicial {
-  width: 340px;
-  height: 340px;
+  width: 410px;
+  height: 410px;
   background-color: rgb(81, 95, 139);
 }
 
 /* Dimensiones para todos los tapetes salvo el inicial */
 .tapete:not(#inicial) {
-  height: 125px;
-  width: 100px;
+  height: 175px;
+  width: 130px;
 }
 
 /* Color de fondo para el tapete de las cartas sobrantes */
@@ -89,4 +89,16 @@ h3#marcadores {
 /* Color de fondo de los tapetes receptores */
 .tapete.receptor {
   background-color: rgba(0, 212, 255, 1);
+}
+
+/* Estilos creados */
+
+.estilobaraja {
+  position: absolute;
+  border: 1px solid #888;
+  border-radius: 20px;
+}
+
+div.estilobaraja img {
+  width: 120px;
 }

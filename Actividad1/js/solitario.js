@@ -5,10 +5,10 @@ let palos = ["viu", "cua", "hex", "cir"];
 
 // Array de colores
 let colores = {
-  viu: "naranja",
-  cua: "naranja",
-  hex: "gris",
-  cir: "gris",
+   viu: "naranja",
+   cua: "naranja",
+   hex: "gris",
+   cir: "gris",
 };
 
 // Array de número de cartas
@@ -59,14 +59,11 @@ let btnReiniciar = document.getElementById("boton_reiniciar"); // btn reinicio j
 /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 
 btnReiniciar.onclick = () => {
-  alert("Presionaste click en el boton");
-  comenzarJuego();
+   comenzarJuego();
 };
 
 // El juego arranca ya al cargar la página: no se espera a reiniciar
 /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
-
-
 
 // Desarrollo del comienzo de juego
 function comenzarJuego() {
@@ -80,52 +77,34 @@ function comenzarJuego() {
 
   /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
   // Creacion del mazo inicial
-  for (let i = 1; i <= 13; i++) 
-  {
-    for (let j = 0; j < palos.length; j++) 
-    {
-      const baraja = 
-      {
-        numero: i,
-        color: colores[palos[j]],
-        palo: palos[j],
-        img: `./imagenes/baraja/${i}-${palos[j]}.png`,
-        posicion: false,
-      };
-      mazoInicial.push(baraja);
-    }
-  }
+   for (let i = 1; i <= 12; i++) {
+      for (let j = 0; j < palos.length; j++) {
+         const baraja = {
+            numero: i,
+            color: colores[palos[j]],
+            palo: palos[j],
+            img: `./imagenes/baraja/${i}-${palos[j]}.png`,
+            posicion: false,
+         };
+         mazoInicial.push(baraja);
+      }
+   }
 
-  // Barajar y dejar mazoInicial en tapete inicial
-  /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
-  
-    // Barajar el mazo inicial
-    mazoBarajado = mazoInicial
-      .map((value) => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value);
-  
-    // Colocar el mazo barajado en el tapete inicial
-    for (let i = 0; i <= mazoBarajado.length; i++) 
-    {
+  // Barajar el mazo inicial
+   mazoBarajado = barajar(mazoInicial);
+
+  // Colocar el mazo barajado en el tapete inicial
+   for (let i = 0; i < mazoBarajado.length; i++) {
+      const ultimo = i === mazoBarajado.length-1
       const baraja = mazoBarajado[i]
-      
-      const barajaVista = document.createElement("div")
-      const imagen = document.createElement("img")
-      imagen.src = baraja.img
-    } 
-
-
-
-
-
-
-
-
-
-
-
-
+      if(ultimo){
+         baraja.posicion = true
+      }
+      const barajaHTML = crearBarajaHTML (baraja)
+      barajaHTML.style.top = `${i * 5}px`
+      barajaHTML.style.left = `${i * 5}px`
+      tapeteInicial.appendChild(barajaHTML)
+   }
   // Puesta a cero de contadores de mazos
   /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 
@@ -161,26 +140,27 @@ function comenzarJuego() {
 /*** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FUNCIONES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! **/
 /*** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! **/
 
+// Da comienzo al temporizador
 function arrancarTiempo() {
   /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
-  if (temporizador) clearInterval(temporizador);
-  let hms = function () {
-    let seg = Math.trunc(segundos % 60);
-    let min = Math.trunc((segundos % 3600) / 60);
-    let hor = Math.trunc((segundos % 86400) / 3600);
-    let tiempo =
-      (hor < 10 ? "0" + hor : "" + hor) +
-      ":" +
-      (min < 10 ? "0" + min : "" + min) +
-      ":" +
-      (seg < 10 ? "0" + seg : "" + seg);
-    setContador(contTiempo, tiempo);
-    segundos++;
-  };
-  segundos = 0;
-  hms(); // Primera visualización 00:00:00
-  temporizador = setInterval(hms, 1000);
-} // arrancarTiempo
+   if (temporizador) clearInterval(temporizador);
+   let hms = function () {
+      let seg = Math.trunc(segundos % 60);
+      let min = Math.trunc((segundos % 3600) / 60);
+      let hor = Math.trunc((segundos % 86400) / 3600);
+      let tiempo =
+         (hor < 10 ? "0" + hor : "" + hor) +
+         ":" +
+         (min < 10 ? "0" + min : "" + min) +
+         ":" +
+         (seg < 10 ? "0" + seg : "" + seg);
+      setContador(contTiempo, tiempo);
+      segundos++;
+   };
+   segundos = 0;
+   hms(); // Primera visualización 00:00:00
+   temporizador = setInterval(hms, 1000);
+}
 
 /**
 	Si mazo es un array de elementos <img>, en esta rutina debe ser
@@ -188,9 +168,32 @@ function arrancarTiempo() {
 	por referencia, de modo que si se altera el orden de dicho array
 	dentro de la rutina, esto aparecerá reflejado fuera de la misma.
 */
+
+// Barajar aleatoriamente el mazo de barajas
 function barajar(mazo) {
-  /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
-} // barajar
+   nuevoMazo = mazo
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
+   return nuevoMazo;
+}
+
+// Crear la baraja en HTML
+function crearBarajaHTML(baraja) {
+   const barajaVista = document.createElement("div");
+   const imagen = document.createElement("img");
+   
+   if (baraja.posicion) {
+      imagen.src = baraja.img;
+   } else {
+      imagen.src = "../../../cardGame/Actividad1/imagenes/baraja/lomo.png";
+   }
+   barajaVista.classList.add("estilobaraja");
+   barajaVista.appendChild(imagen);
+   return barajaVista;
+}
+
+
 
 /**
  	En el elemento HTML que representa el tapete inicial (variable tapeteInicial)
