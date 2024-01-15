@@ -29,6 +29,7 @@ let tapeteReceptor4 = document.getElementById("receptor4");
 
 // Mazos
 let mazoInicial = [];
+let mazoBarajado = [];
 let mazoSobrantes = [];
 let mazoReceptor1 = [];
 let mazoReceptor2 = [];
@@ -59,23 +60,13 @@ let btnReiniciar = document.getElementById("boton_reiniciar"); // btn reinicio j
 
 btnReiniciar.onclick = () => {
   alert("Presionaste click en el boton");
+  comenzarJuego();
 };
 
 // El juego arranca ya al cargar la página: no se espera a reiniciar
 /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 
-for (let i = 1; i <= 13; i++) {
-  for (let j = 0; j < palos.length; j++) {
-    const baraja = {
-      numero: i,
-      color: colores[palos[j]],
-      palo: palos[j],
-      img: `./imagenes/baraja/${i}-${palos[j]}.png`,
-    };
-    mazoInicial.push(baraja);
-  }
-}
-console.log(mazoInicial);
+
 
 // Desarrollo del comienzo de juego
 function comenzarJuego() {
@@ -89,22 +80,51 @@ function comenzarJuego() {
 
   /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
   // Creacion del mazo inicial
-
-  for (let i = 1; i <= 13; i++) {
-    for (let j = 0; j < palos.length; j++) {
-      const baraja = {
+  for (let i = 1; i <= 13; i++) 
+  {
+    for (let j = 0; j < palos.length; j++) 
+    {
+      const baraja = 
+      {
         numero: i,
         color: colores[palos[j]],
         palo: palos[j],
         img: `./imagenes/baraja/${i}-${palos[j]}.png`,
+        posicion: false,
       };
       mazoInicial.push(baraja);
     }
   }
-  console.log(mazoInicial);
 
   // Barajar y dejar mazoInicial en tapete inicial
   /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
+  
+    // Barajar el mazo inicial
+    mazoBarajado = mazoInicial
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
+  
+    // Colocar el mazo barajado en el tapete inicial
+    for (let i = 0; i <= mazoBarajado.length; i++) 
+    {
+      const baraja = mazoBarajado[i]
+      
+      const barajaVista = document.createElement("div")
+      const imagen = document.createElement("img")
+      imagen.src = baraja.img
+    } 
+
+
+
+
+
+
+
+
+
+
+
 
   // Puesta a cero de contadores de mazos
   /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
@@ -136,6 +156,10 @@ function comenzarJuego() {
 	el resultado de la llamada a setInterval en alguna variable para llamar oportunamente
 	a clearInterval en su caso.   
 */
+
+/*** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! **/
+/*** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FUNCIONES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! **/
+/*** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! **/
 
 function arrancarTiempo() {
   /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
