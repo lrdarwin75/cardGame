@@ -105,6 +105,8 @@ function comenzarJuego() {
       barajaHTML.style.left = `${i * 5}px`
       tapeteInicial.appendChild(barajaHTML)
    }
+
+   
   // Puesta a cero de contadores de mazos
   /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 
@@ -190,6 +192,7 @@ function crearBarajaHTML(baraja) {
    }
    barajaVista.classList.add("estilobaraja");
    barajaVista.appendChild(imagen);
+   
    return barajaVista;
 }
 
