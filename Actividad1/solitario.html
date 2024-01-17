@@ -63,12 +63,16 @@
         <!-- Parte superior -->
         <div class="tapetes_superiores">
           <!-- Tapete inicial -->
-          <div id="inicial" class="tapete">
+          <div id="inicial" class="tapete" ondrop="drop(event)" ondragover="allowDrop(event)">
             <span id="contador_inicial" class="contador"> </span>
           </div>
           <!-- Tapete de sobrantes -->
-          <div id="sobrantes" class="tapete">
+          <div id="sobrantes" class="tapete" ondrop="drop(event)" ondragover="allowDrop(event)">
             <span id="contador_sobrantes" class="contador"> </span>
+          </div>
+          <!-- Auxiliar Borrar -->
+          <div class="tapete">
+            <h1 id="textoborrar" style="color: white;">Texto para borrar</h1>
           </div>
         </div>
         <!-- Parte inferior -->

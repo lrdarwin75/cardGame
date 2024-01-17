@@ -1,5 +1,9 @@
 /***** INICIO DECLARACIÓN DE VARIABLES GLOBALES *****/
 
+// Variables simples
+let barajaClick = null; //Contiene la baraja que fue dada click en primer lugar
+
+
 // Array de palos
 let palos = ["viu", "cua", "hex", "cir"];
 
@@ -59,14 +63,19 @@ let btnReiniciar = document.getElementById("boton_reiniciar"); // btn reinicio j
 /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 
 btnReiniciar.onclick = () => {
-   comenzarJuego();
+   //tapeteInicial = [];
+   mazoInicial = [];
+   mazoBarajado = [];
+
+   ComenzarJuego();
+  
 };
 
 // El juego arranca ya al cargar la página: no se espera a reiniciar
 /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 
 // Desarrollo del comienzo de juego
-function comenzarJuego() {
+function ComenzarJuego() {
   /* Crear baraja, es decir crear el mazoInicial. Este será un array cuyos 
 	elementos serán elementos HTML <img>, siendo cada uno de ellos una carta.
 	Sugerencia: en dos bucles for, bárranse los "palos" y los "numeros", formando
@@ -77,34 +86,42 @@ function comenzarJuego() {
 
   /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
   // Creacion del mazo inicial
+  k=1;
    for (let i = 1; i <= 12; i++) {
       for (let j = 0; j < palos.length; j++) {
          const baraja = {
+            id: "baraja-" + k,
             numero: i,
             color: colores[palos[j]],
             palo: palos[j],
             img: `./imagenes/baraja/${i}-${palos[j]}.png`,
-            posicion: false,
+            cara_frontal: false,
+            
          };
+         k += 1;
          mazoInicial.push(baraja);
       }
    }
 
   // Barajar el mazo inicial
-   mazoBarajado = barajar(mazoInicial);
+   mazoBarajado = BarajarMazo(mazoInicial);
 
   // Colocar el mazo barajado en el tapete inicial
    for (let i = 0; i < mazoBarajado.length; i++) {
-      const ultimo = i === mazoBarajado.length-1
-      const baraja = mazoBarajado[i]
+      
+      const ultimo = i === mazoBarajado.length-1;
+      const baraja = mazoBarajado[i];
       if(ultimo){
-         baraja.posicion = true
+         baraja.cara_frontal = true;
       }
-      const barajaHTML = crearBarajaHTML (baraja)
-      barajaHTML.style.top = `${i * 5}px`
-      barajaHTML.style.left = `${i * 5}px`
-      tapeteInicial.appendChild(barajaHTML)
+      const barajaHTML = CrearBarajaHTML (baraja);
+      barajaHTML.style.top = `${i * paso}px`;
+      barajaHTML.style.left = `${i * paso}px`;
+      tapeteInicial.appendChild(barajaHTML);
    }
+
+   // Colocar el mazo barajado en el tapete inicial
+
 
    
   // Puesta a cero de contadores de mazos
@@ -113,6 +130,7 @@ function comenzarJuego() {
   // Arrancar el conteo de tiempo
   /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 } // comenzarJuego
+
 
 /**
 	Se debe encargar de arrancar el temporizador: cada 1000 ms se
@@ -171,30 +189,71 @@ function arrancarTiempo() {
 	dentro de la rutina, esto aparecerá reflejado fuera de la misma.
 */
 
-// Barajar aleatoriamente el mazo de barajas
-function barajar(mazo) {
-   nuevoMazo = mazo
+// Funcion para barajar aleatoriamente el mazo de barajas
+function BarajarMazo(mazo) {
+   const nuevoMazo = mazo
       .map((value) => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
    return nuevoMazo;
 }
 
-// Crear la baraja en HTML
-function crearBarajaHTML(baraja) {
-   const barajaVista = document.createElement("div");
+// Funcion para crear la baraja en HTML
+function CrearBarajaHTML(baraja) {
    const imagen = document.createElement("img");
    
-   if (baraja.posicion) {
+   if (baraja.cara_frontal === true) {
       imagen.src = baraja.img;
    } else {
       imagen.src = "../../../cardGame/Actividad1/imagenes/baraja/lomo.png";
    }
-   barajaVista.classList.add("estilobaraja");
-   barajaVista.appendChild(imagen);
-   
-   return barajaVista;
+   imagen.setAttribute('id', baraja.id); 
+   imagen.dataset.numero = baraja.numero;
+   imagen.dataset.color = baraja.color;
+   imagen.dataset.palo = baraja.palo;
+   imagen.dataset.img = baraja.img;
+   imagen.dataset.cara_frontal = baraja.cara_frontal;
+   imagen.classList.add("estilobaraja");
+   imagen.setAttribute('draggable', false);
+   //Revisar si es necesario
+   imagen.onclick = () => {
+      ComprobarBarajaClick(imagen)
+   }
+   return imagen;
 }
+
+
+// Revisar tal vez no se necesite Verificar que carta se dio un click
+function ComprobarBarajaClick(baraja) {
+   if ( baraja.dataset.cara_frontal == "true") {
+      baraja.className += " estilobarajaclick";
+      baraja.setAttribute('draggable', true);
+      baraja.setAttribute('ondragstart', "drag(event)");
+   }
+}
+
+// Funcion para mover las cartas
+function allowDrop(ev) {
+   ev.preventDefault();
+}
+
+function drag(ev) {
+   ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+   ev.preventDefault();
+   var data = ev.dataTransfer.getData("text");
+   var draggedElement = document.getElementById(data);
+   var targetDiv = ev.target;
+
+   if(targetDiv.id === 'sobrantes') {
+      targetDiv.appendChild(draggedElement);
+      //baraja.style.top = `0px`;
+      //baraja.style.left = `0px`;
+   }
+}
+
 
 
 

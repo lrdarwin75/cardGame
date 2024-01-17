@@ -97,8 +97,9 @@ h3#marcadores {
   position: absolute;
   border: 1px solid #888;
   border-radius: 20px;
-}
-
-div.estilobaraja img {
   width: 120px;
 }
+
+.estilobarajaclick {
+   border: 4px solid rgba(12, 5, 74, 1);
+ }
