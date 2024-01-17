@@ -249,7 +249,7 @@ function drop(ev) {
 
    if(targetDiv.id === 'sobrantes') {
       targetDiv.appendChild(draggedElement);
-      //baraja.style.top = `0px`;
+      baraja.style.top = `0px`;
       //baraja.style.left = `0px`;
    }
 }
