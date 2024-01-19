@@ -60,17 +60,58 @@
 				mazos de cartas de cada tapete están indicados oportunamente dentro
 				de elementos span -->
       <div id="mesa">
-        <!-- Parte superior -->
-        <div class="tapetes_superiores">
-          <!-- Tapete inicial -->
-          <div id="inicial" class="tapete">
-            
-          </div>
-          <!-- Tapete de sobrantes -->
-          <div id="sobrantes" class="tapete" ondrop="SoltarMovimiento(event)" ondragover="PermitirMovimiento(event)">
-            
-          </div>
-        </div>
+         <!-- Parte superior -->
+         <div class="row"> 
+            <!-- Parte izquierda -->
+            <div class="tapetes_izquierdo col-lg-1" >
+               <h4>
+                  Primera Baraja :
+                  <select id="idbaraja1" name="idbaraja1" class="form-select" onchange="habilitarBaraja2()" aria-label="Default select example">
+                     <option value="1" selected>1</option>
+                     <option value="2">2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                     <option value="6">6</option>
+                     <option value="7">7</option>
+                     <option value="8">8</option>
+                     <option value="9">9</option>
+                     <option value="10">10</option>
+                     <option value="11">11</option>
+                     <option value="12">12</option>
+                  </select>
+               </h4>
+                <br>
+                <h4>
+                  Ultima Baraja :
+                  <select id="idbaraja2" name="idbaraja2" class="form-select" onchange="ComenzarJuego()" aria-label="Default select example">
+                     <option value="2" selected>2</option>
+                     <option value="3">3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                     <option value="6">6</option>
+                     <option value="7">7</option>
+                     <option value="8">8</option>
+                     <option value="9">9</option>
+                     <option value="10">10</option>
+                     <option value="11">11</option>
+                     <option value="12">12</option>
+                   </select>
+                </h4>
+                
+            </div>
+               <!-- Parte derecha -->
+            <div class="tapetes_superiores col-lg-9">
+               <!-- Tapete inicial -->
+               <div id="inicial" class="tapete">
+                  
+               </div>
+               <!-- Tapete de sobrantes -->
+               <div id="sobrantes" class="tapete" ondrop="SoltarMovimiento(event)" ondragover="PermitirMovimiento(event)">
+                  
+               </div>
+            </div>
+         </div>
         <!-- Parte inferior -->
         <!-- Receptor 1 -->
         <div id="receptor1" class="tapete receptor" ondrop="SoltarMovimiento(event)" ondragover="PermitirMovimiento(event)">

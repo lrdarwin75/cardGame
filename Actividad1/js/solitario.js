@@ -1,12 +1,17 @@
 /***** INICIO DECLARACIÓN DE VARIABLES GLOBALES *****/
 
 // Variables simples
-let barajaInicio = 1;
-let barajaFin = 2;
 let tapeteInicio = null;
 let contadorMovimientos = 0;
 let indicadorMovimiento = document.getElementById("indicador_movimientos");
 let indicadorTiempo = document.getElementById("indicador_tiempo");
+
+let baraja1 = document.getElementById("idbaraja1");
+let baraja2 = document.getElementById("idbaraja2");
+let barajaSeleccionado = parseInt(baraja1.value);
+
+let barajaInicio = 1;
+let barajaFin = 12;
 
 // Array de palos
 let palos = ["viu", "cua", "hex", "cir"];
@@ -20,7 +25,7 @@ let colores = {
 };
 
 // paso (top y left) en pixeles de una carta a la siguiente en un mazo
-let paso = 10;
+let paso = 5;
 
 // Tapetes
 let tapeteInicial = document.getElementById("inicial");
@@ -373,3 +378,24 @@ function VolverBarajas()
 function setContador(contador, valor) {
    contador.innerHTML = valor;
 } 
+
+// Funcion que muestra el tiempo
+function habilitarBaraja2() 
+{   
+   // Limpiar opciones anteriores
+   baraja2.innerHTML = '';
+
+   // Generar opciones desde el valor seleccionado hasta 12
+   for (let i = barajaSeleccionado + 1; i <= 12; i++) {
+     const option = document.createElement("option");
+     option.value = i;
+     option.text = i;
+     baraja2.add(option);
+   }
+
+   // Habilitar el segundo select
+   baraja2.disabled = false;
+
+   barajaInicio = parseInt(baraja1.value);
+   barajaFin = parseInt(baraja2.value);  
+}
