@@ -67,7 +67,7 @@ function ComenzarJuego() {
   ColocarTapeteInicial(mazoBarajado);
 
   // Llamado a la funcion que arranca el conteo de tiempo
-  arrancarTiempo();
+  ArrancarTiempo();
 } 
 
 /*** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! **/
@@ -86,6 +86,8 @@ function limpiezaVariables()
    tapeteReceptor3.innerHTML = "";
    tapeteReceptor4.innerHTML = "";
    contMovimientos.innerHTML = 0;
+   barajaInicio = parseInt(baraja1.value);
+   barajaFin = parseInt(baraja2.value);  
 }
 
 // Funcion para crear el mazo inicial
@@ -132,10 +134,9 @@ function ColocarTapeteInicial(mazo)
          baraja.cara_frontal = true;
       }
       const barajaHTML = CrearBarajaHTML(baraja);
-      barajaHTML.style.top = `${i * paso}px`;
-      barajaHTML.style.left = `${i * paso}px`;
       tapeteInicial.appendChild(barajaHTML);
    }
+   MoverBarajas();
    const contInic = document.createElement("span");
    tapeteInicial.appendChild(contInic);
    contInic.setAttribute("id", "contador_inicial");
@@ -192,7 +193,7 @@ function ComprobarBarajaClick(baraja)
 }
 
 // Funcion que arranca el conteo de tiempo
-function arrancarTiempo() {
+function ArrancarTiempo() {
    if (temporizador) clearInterval(temporizador);
    let hms = function () 
    {
@@ -372,7 +373,21 @@ function VolverBarajas()
    {
     tapeteInicial.appendChild(img);
    });
+   MoverBarajas()
 }
+
+// Funcion que mueve las cartas de 5px a la derecha y para abajo 
+function MoverBarajas() 
+{
+   const imagenes = tapeteInicial.getElementsByTagName("img");
+   for (let i = 0; i < imagenes.length; i++) 
+   {
+      const barajaHTML = imagenes[i];
+      barajaHTML.style.top = `${i * paso}px`;
+      barajaHTML.style.left = `${i * paso}px`;
+   }
+}
+
 
 // Funcion que muestra el tiempo
 function setContador(contador, valor) {
@@ -395,7 +410,4 @@ function habilitarBaraja2()
 
    // Habilitar el segundo select
    baraja2.disabled = false;
-
-   barajaInicio = parseInt(baraja1.value);
-   barajaFin = parseInt(baraja2.value);  
 }
